@@ -1,0 +1,26 @@
+# --- Build outputs ----------------------------------------------------------
+.godot/
+.vs/
+.idea/
+.vscode/
+bin/
+obj/
+dist/
+*.user
+
+# Godot import cache (regenerated on first --import)
+*.import
+*.uid
+
+# Godot export output (built per-release, attached to GitHub Releases instead)
+BlockMod.pck
+
+# --- Proprietary game files (DO NOT COMMIT) --------------------------------
+# These are copied locally from your Slay the Spire 2 install for the build
+# reference. They are not ours to redistribute.
+sts2.dll
+0Harmony.dll
+
+# --- Tooling --------------------------------------------------------------
+godot.zip
+*.DS_Store

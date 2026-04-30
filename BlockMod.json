@@ -1,0 +1,11 @@
+{
+  "id": "BlockMod",
+  "name": "Block Mod",
+  "author": "Peyton Nowlin",
+  "description": "The player's block is never lost at the start of a turn (innate Barricade for every character). Enemies are unaffected.",
+  "version": "1.0.0",
+  "has_pck": true,
+  "has_dll": true,
+  "dependencies": [],
+  "affects_gameplay": true
+}
