@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Slay the Spire 2](https://img.shields.io/badge/Slay%20the%20Spire%202-v0.110.1-7a1a1a)](https://store.steampowered.com/app/2868840)
-[![Nexus Mods](https://img.shields.io/badge/Nexus%20Mods-Block%20Mod-c08b4d)](https://www.nexusmods.com/slaythespire2)
+[![Nexus Mods](https://img.shields.io/badge/Nexus%20Mods-Block%20Mod-c08b4d)](https://www.nexusmods.com/slaythespire2/mods/739)
 
 An innate Barricade for every Slay the Spire 2 character.
 
@@ -12,7 +12,7 @@ Your block is **never** lost at the start of your turn — whatever you didn't s
 
 ## Install (players)
 
-1. Grab `BlockMod-X.Y.Z.zip` from the latest [release](../../releases) (or [Nexus Mods](https://www.nexusmods.com/slaythespire2)).
+1. Grab `BlockMod-X.Y.Z.zip` from the latest [release](../../releases) (or [Nexus Mods](https://www.nexusmods.com/slaythespire2/mods/739)).
 2. Extract it. You should see a `BlockMod/` folder containing exactly three files: `BlockMod.dll`, `BlockMod.json`, `BlockMod.pck`.
 3. Drop that `BlockMod` folder into the game's `mods` directory:
    - **Windows**: `<Steam>\steamapps\common\Slay the Spire 2\mods\`
