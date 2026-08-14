@@ -1,31 +1,41 @@
-using System.Threading.Tasks;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Hooks;
+using MegaCrit.Sts2.Core.Logging;
 
 namespace BlockMod.Patches;
 
-// Suppress the start-of-turn block reset for the player only.
+// Keep player block between turns using the same public hook Barricade uses.
 //
-// Game flow (decompiled from sts2.dll):
-//   Creature.ClearBlock() is called at the start of each side's turn.
-//   It asks Hook.ShouldClearBlock(...) whether any active power/relic
-//   prevents the clear (e.g. BarricadePower.ShouldClearBlock returns
-//   false when the owner is the creature being cleared). If nothing
-//   prevents it, Block is set to 0.
+// Game flow (sts2.dll through at least v0.110.x):
+//   Creature.ClearBlock() asks Hook.ShouldClearBlock(...) whether any
+//   power/relic prevents the wipe. BarricadePower.ShouldClearBlock returns
+//   false when the owner is the creature being cleared. If nothing prevents
+//   it, Block is set to 0.
 //
-// We short-circuit ClearBlock entirely when the creature is the player,
-// so block carries over from the previous turn. Enemies are left alone.
-[HarmonyPatch(typeof(Creature), "ClearBlock")]
+// Patching the private ClearBlock method broke across Early Access updates.
+// Hook.ShouldClearBlock is the public extension point, so we force it to
+// false for player creatures. Enemies still lose block normally.
+[HarmonyPatch(typeof(Hook), nameof(Hook.ShouldClearBlock))]
 public static class KeepBlockBetweenTurnsPatch
 {
-    private static bool Prefix(Creature __instance, ref Task __result)
+    private static bool Prepare()
     {
-        if (!__instance.IsPlayer)
+        var method = AccessTools.DeclaredMethod(typeof(Hook), nameof(Hook.ShouldClearBlock));
+        if (method != null)
         {
             return true;
         }
 
-        __result = Task.CompletedTask;
+        Log.Error("[BlockMod] Hook.ShouldClearBlock was not found. This game version is not supported.");
         return false;
+    }
+
+    private static void Postfix(Creature creature, ref bool __result)
+    {
+        if (creature.IsPlayer)
+        {
+            __result = false;
+        }
     }
 }

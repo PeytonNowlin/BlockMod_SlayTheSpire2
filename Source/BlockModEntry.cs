@@ -1,3 +1,4 @@
+using System.Linq;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
@@ -15,6 +16,13 @@ public static class BlockModEntry
         {
             var harmony = new Harmony(HarmonyId);
             harmony.PatchAll(typeof(BlockModEntry).Assembly);
+
+            if (!harmony.GetPatchedMethods().Any())
+            {
+                Log.Error($"[{HarmonyId}] no patches applied - this game version may be unsupported.");
+                return;
+            }
+
             Log.Warn($"[{HarmonyId}] loaded - player block now persists between turns.");
         }
         catch (System.Exception ex)
